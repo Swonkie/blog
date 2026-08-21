@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DeskFighter Keyboard</title>
+	<link href="/style/style.css" rel="stylesheet" media="all">
+</head>
+
+<body>
+	<nav id="toc">
+		<ol>
+			<li><a href="#about">What this article is about</a>
+			<li><a href="#journey">The journey</a>
+				<ol>
+					<li><a href="#motivation">Motivation</a></li>
+					<li><a href="#features">Layout and features</a>
+						<ol>
+							<li><a href="#design-decisions">What I came up with</a></li>
+							<li><a href="#construction">Construction</a></li>
+						</ol>
+					</li>
+					<li><a href="#shopping">Shopping for parts</a></li>
+					<li><a href="#3D">CAD and 3D printing</a>
+						<ol>
+							<li><a href="#keycaps">Keycaps</a></li>
+							<li><a href="#feet">Feet</a></li>
+						</ol>
+					</li>
+					<li><a href="#PCB">PCB design</a>
+						<ol>
+							<li><a href="#matrix">Matrix layout and ghosting</a></li>
+							<li><a href="#electronics">Electronic parts selection</a></li>
+							<li><a href="#schematic">Schematic and PCB layout</a></li>
+							<li><a href="#3D-models">A word about 3D models</a></li>
+							<li><a href="#macropad">MacroPad</a></li>
+							<li><a href="#manufacturing">Get it made</a></li>
+						</ol>
+					</li>
+					<li><a href="#firmware">Firmware</a></li>
+					<li><a href="#assembly">Assembly</a></li>
+				</ol>
+			</li>
+			<li><a href="#using">Using it</a></li>
+			<li><a href="#costs">BOM and costs</a>
+				<ol>
+					<li><a href="#mistakes">Mistakes</a></li>
+				</ol>
+			</li>
+			<li><a href="#outro">But wait…</a></li>
+		</ol>
+	</nav>
+
+	<main>
+		<h1>DeskFighter</h1>
+		<a href="images/teaser.jpg">
+			<img src="images/teaser.jpg" alt="photo of keyboard with low depth of field" loading="lazy" width="3000" height="1458">
+		</a>
+		<p>August 2026</p>
+
+		<section id="about">
+			<h2>What this article is about</h2>
+			<p>How I designed and built a custom mechanical keyboard (not a kit).</p>
+			<blockquote>
+				<p>I planned to write this in the form of a tutorial, thinking if I was able to acquire the necessary skills to build a keyboard, anyone can do it. While I believe that's true, it's not realistic for someone who has yet to learn the basics of product design, digital electronics, PCB design, soldering, CAD, 3D printing and building firmware, to build a keyboard as a first project. So this is more of a design journal with tips for other aspiring keyboard builders.</p>
+				<p>If you're short on time or attention, you can browse through the <a href="gallery.html">gallery</a> and read the image captions.</p>
+			</blockquote>
+			<p>I'm an industrial designer by education and the goals and design principles, I've set for myself, reflect that:</p>
+			<ul>
+				<li>the keyboard must look good</li>
+				<li>the typing experience and ergonomics must be top notch</li>
+				<li>adequate and efficient use of materials — no splurging on things I don't need, no overengineering</li>
+				<li>avoid as much manual work as possible by using automated manufacturing — 3D printing instead of woodworking; avoid manual post-processing by designing things so they don't need it</li>
+				<li>use the right software for each job, to make my life easy</li>
+			</ul>
+		</section>
+
+		<section id="journey">
+			<h2>The journey</h2>
+
+			<section id="motivation">
+				<h3>Motivation</h3>
+				<ul>
+					<li>fully customize everything to my liking</li>
+					<li>little annoyances with my current keyboard</li>
+					<li>I like designing things and I use a keyboard every day</li>
+				</ul>
+			</section>
+
+			<section id="features">
+				<h3>Layout and features</h3>
+				<a href="images/Figma layout.png">
+					<img src="images/Figma layout.png" alt="screenshot of the keyboard layout in Figma" loading="lazy" width="3306" height="2218">
+				</a>
+				<p>I used <a href="https://www.figma.com/design/" target="_blank">Figma</a> to work out which features I wanted my keyboard to have and how to arrange everything.</p>
+				<p>I created frames with auto layouts to arrange keys in rows and columns. It's perfect to get consistent spacing, which can be adjusted interactively with instant feedback. Keys can be moved around by drag and drop.</p>
+				<p>I created the different key types (1u, 2u, with LED indicator) as components, so they stay in sync and global adjustments are easy to make.</p>
+				<p>Overall it's a very efficient way to work out the layout, making constant adjustments while keeping everything clean and orderly. Of course it's also convenient to try out colors and fonts for labeling. Icons can quickly be added using the <a href="https://fonts.google.com/icons" target="_blank">Material Icons</a> font.</p>
+				<a href="images/paper prototype.jpg">
+					<img src="images/paper prototype.jpg" alt="photo of keyboard layout paper printout" loading="lazy" width="3000" height="1895">
+				</a>
+				<p>Once I was happy with the layout, I printed it on paper, at actual size, so I could put my hands on it and give it a sanity check.</p>
+
+				<section id="design-decisions">
+					<h4>What I came up with</h4>
+					<ul>
+						<li><a href="https://en.wiktionary.org/wiki/ortholinear" target="_blank">ortholinear</a> makes more sense to me than the arbitrarily staggered rows of the "classic" keyboard (created due to mechanical limitations in ancient typewriters), and I like the clean look of the grid</li>
+						<li>arrow keys on left side (my mouse is on the right and I prefer to have a shorter distance from the main block to the mouse)</li>
+						<li>dedicated F-keys without alternate functions (often used for debugging and CAD)</li>
+						<li>the corners of the keyboard are valuable because you can find them blindly and quickly, even when the hands are not on the keyboard → media playback keys in top right</li>
+						<li>rotary encoder for volume in bottom right</li>
+						<li>wear patterns on my current keyboard show that I don't use the center of the spacebar → better use for this prime location: split spacebar into three 2u keys:<br>
+						[  space  | backspace |  space  ]
+						</li>
+						<li>black, clean, minimalistic look</li>
+						<li>white markings</li>
+						<li>red LEDs for num-lock and caps-lock</li>
+						<li>num-lock enables numerical block where the right hand rests (matches perfectly with ortholinear layout)</li>
+					</ul>
+				</section>
+
+				<section id="construction">
+					<h4>Construction</h4>
+					<ul>
+						<li>wired, USB-C connector (host side can be USB-C or USB-A)</li>
+						<li>"naked" PCB, no enclosure, no plate — acceptable because my keyboard always sits on my desk (I don't put it on my lap, I don't travel with it)</li>
+						<li>3D printed, screw mounted feet allow customization of keyboard height and angle</li>
+						<li>low profile switches and keycaps</li>
+					</ul>
+					<p>Since the PCB will be visible, I have to think about its appearance. Luckily there are quite a few things to tweak:</p>
+					<ul>
+						<li>contours of the board are routed and can be freely defined</li>
+						<li>inner cutouts are also possible</li>
+						<li>holes can be drilled precisely</li>
+						<li>soldermask is not just green anymore, but available in various colors (even multicolor prints are possible for extra charge)</li>
+						<li>silkscreen (usually white or black) for text and graphics</li>
+						<li>metallic looking text and graphics can be created by exposing the copper layer</li>
+						<li>copper surface treatment: hot air solder leveling (HASL) is cheap but the tin surface looks a little "bumpy", gold plating (ENIG) is very flat but costs extra</li>
+					</ul>
+				</section>
+			</section>
+
+			<section id="shopping">
+				<h3>Shopping for parts</h3>
+				<a href="images/key samples.jpg">
+					<img src="images/key samples.jpg" alt="photo of key sampler" loading="lazy" width="3000" height="2154">
+				</a>
+				<p>To find out which keys I like, I <a href="https://www.keebart.com/products/switch-tester-v2" target="_blank">bought a key sampler</a> with <em>Kailh Choc V2</em> low profile switches. Decided to use the red ones (linear).</p>
+				<p>I really liked the keycaps that came with my sampler kit (Tai-Hao low profile, also called THT). They look nice and I can feel the center of the key, when touch typing. I decided I don't want flat keycaps anymore.</p>
+				<p>Then things got annoying. My naive expectation was, that there is a huge ecosystem of parts for building custom mechanical keyboards, so it would be easy to find exactly what I want. The former part is true, but my conclusion was wrong. Once you decide on certain parts to use, your options shrink drastically, because everything needs to fit together. Deviate from "the common way" to build a keyboard — e.g. by using an "exotic" layout, low profile keys or not having a faceplate — and it gets even more extreme. While these limitations are understandable, they go against the very reason for building a custom keyboard. If you want a <em>regular</em> keyboard, you can just buy one.</p>
+				<p>After many frustrating hours of browsing shops and figuring out my options, I came up with the following compromises:</p>
+				<ul>
+					<li>blank THT keycaps for the main block and arrow keys — for touch typing I don't need labels and I switch between two different layouts on the OS level anyway, so the labels would often be incorrect</li>
+					<li>with tactile markers in F and J position</li>
+					<li>with a shine-through dot for num-lock and caps-lock</li>
+					<li>3D printed keycaps with labels for the lesser used keys</li>
+					<li>3D printed 2u keycaps (space, backspace, enter) — there are blank THT 2u keycaps, but they have an unnecessary shine-through dot and I don't like the shape very much</li>
+					<li>Durock V3 plate-mounted stabilizers — when mounted on the PCB, they have about the right height for my low profile switches and they fit into a 1.6 mm PCB</li>
+				</ul>
+				<p>Along the way I bought two sets of unsuitable stabilizers (my mistake) and a full set of Kailh Choc V2 switches, which were an older, slightly less nice version than the one I tested before (from a different shop). Come on Kailh — if you modify your "V2" switches, call the new ones "V3".</p>
+				<p>This was the only part of the project I disliked, and I almost gave up.</p>
+			</section>
+
+			<section id="3D">
+				<h3>CAD and 3D printing</h3>
+				<p>I used <a href="https://www.freecad.org/" target="_blank">FreeCAD</a> to keep this project open for others to modify. It has many UI/UX warts, but I like the relatively quick startup and easy import/export of different file formats, which came in very handy.</p>
+
+				<section id="keycaps">
+					<h4>Keycaps</h4>
+					<a href="images/FreeCAD 2u keycap.jpg">
+						<img src="images/FreeCAD 2u keycap.jpg" alt="screenshot of 2u keycap in FreeCAD" loading="lazy" width="3106" height="2138">
+					</a>
+					<p>I designed the keycaps to look similar to the THT keycaps, except with a flat top. The flat top avoids the typical layer lines that 3D prints have, which can be felt and seen and which collect dirt and are impossible to clean.</p>
+					<p>I created 1u and 2u keycaps in separate files and duplicated them in a grid as many times as I needed.</p>
+					<a href="images/label design.jpg">
+						<img src="images/label design.jpg" alt="screenshot of key labels in Affinity" loading="lazy" width="3182" height="1978">
+					</a>
+					<p>Then I created the labels in <a href="https://www.affinity.studio/" target="_blank">Affinity</a> (<a href="https://inkscape.org/" target="_blank">Inkscape</a> or any other vector illustration program would work too). This gave me full control over font and icon styling. I used Futura and material icons.</p>
+					<a href="images/FreeCAD 1u keycaps.png">
+						<img src="images/FreeCAD 1u keycaps.png" alt="screenshot of 1u keycaps with labels in FreeCAD" loading="lazy" width="3108" height="2140">
+					</a>
+					<p>I aligned them in exactly the same grid as I had in FreeCAD, exported them all at once in SVG format and imported that in FreeCAD. A simple extrusion of 0.8 mm and the labels are done.</p>
+					<a href="images/Bambu Studio keycaps.jpg">
+						<img src="images/Bambu Studio keycaps.jpg" alt="screenshot of keycaps in Bambu Studio" loading="lazy" width="3264" height="2394">
+					</a>
+					<p>I found the STEP format ideal to export the parts to be printed. I could export the keycaps and labels together in one file and the slicer correctly loaded that as one object with two parts (keycaps and labels). I could then assign black PLA to the keycaps and white PLA to the labels. The slicing worked as expected and didn't complain about the intersecting objects. Obviously this requires a 3D printer which can change materials automatically.</p>
+					<a href="images/printed keycaps.jpg">
+						<img src="images/printed keycaps.jpg" alt="photo of 3D printed keycaps, still on build plate" loading="lazy" width="3000" height="2456">
+					</a>
+					<p>Some tips if you try the same:</p>
+					<ul>
+						<li>use a 0.2 mm nozzle — it produces much more detailed labels and it's much easier to get the part right which gets pushed on the stem of the switches</li>
+						<li>to get really white labels:
+							<ul>
+								<li>make the labels at least 0.8 mm thick — white plastic is translucent; it's not enough to print only the first layer in white</li>
+								<li>make sure the first layer of the labels does not contain traces of a darker material — clean the nozzle before starting the print ("cold pull") and make sure the slicer uses the white material first on the first layer (<a href="https://wiki.bambulab.com/en/software/bambu-studio/parameter/filament-sequence-for-different-layers#operation-procedure" target="_blank">Bambu Studio / OrcaSlicer settings</a>)</li>
+							</ul>
+						</li>
+						<li>use a build plate with a smooth, non-glossy surface — this is the surface the keycaps will have; this way you can avoid sanding or other manual post-processing</li>
+					</ul>
+				</section>
+
+				<section id="feet">
+					<h4>Feet</h4>
+					<a href="images/feet.jpg">
+						<img src="images/feet.jpg" alt="photo of 3D printed feet with heat set inserts and rubber pads" loading="lazy" width="3000" height="2123">
+					</a>
+					<p>I made very simple, cylindrical feet, with a hole for <a href="https://cnckitchen.store/products/heat-set-insert-m2-x-3-100-pieces" target="_blank">M2 heat-set inserts</a>, and put some self-adhesive rubber pads on them.</p>
+					<p>By varying the length of the feet at the front and back of the keyboard, I can adjust its height and angle.</p>
+				</section>
+			</section>
+
+			<section id="PCB">
+				<h3>PCB design</h3>
+
+				<section id="matrix">
+					<h4>Matrix layout and ghosting</h4>
+					<a href="images/keyboard matrix.png">
+						<img src="images/keyboard matrix.png" alt="screenshot of spreadsheet with keyboard matrix" loading="lazy" width="2868" height="1664">
+					</a>
+					<p>To reduce the number of pins the microcontroller needs, the key switches are arranged in a grid, so that each switch connects a specific column with a specific row when pressed. Each row and each column is connected to one I/O pin. The microcontroller continuously scans this matrix by activating one column at a time and reading all rows.</p>
+					<p>A drawback of this design is that the microcontroller can detect false keypresses under certain circumstances. If three keys are pressed simultaneously, which form an L-shape on the matrix, the microcontroller will register the key in the fourth corner of the imaginary rectangle as also pressed, even if it isn't — a ghost. That is unless the key in the corner of the L-shape has a diode in series to prevent reverse current flow.</p>
+					<p>The brute force approach to this problem is to add a diode to every single key. That's fine if components are placed by a pick and place machine (diodes are cheap), but I wasn't looking forward to soldering 91 diodes by hand.</p>
+					<p>To minimize the chance of ghosting, I've arranged the common combo-keys (shift, ctrl, alt, gui) in a single row and gave them diodes. All other keys have unpopulated solder pads with a copper track in between. This way I have to solder only 8 diodes instead of 91. If I encounter a ghosting problem in daily use, I can cut the track and put in a diode for the problematic key.</p>
+					<p>To plan the matrix layout, I found a spreadsheet very convenient. It's easy to drag cells around to make changes, conditional formatting helps visualizing different types of keys, formulas can give me all relevant stats — for example how many keys I need to buy and how many I/O pins the microcontroller needs for the matrix.</p>
+				</section>
+
+				<section id="electronics">
+					<h4>Electronic parts selection</h4>
+					<a href="images/electronic parts.jpg">
+						<img src="images/electronic parts.jpg" alt="photo of electronic components on table" loading="lazy" width="3000" height="2051">
+					</a>
+					<p>I picked an STM32 microcontroller that works with the popular open source keyboard firmware <a href="https://docs.qmk.fm/newbs" target="_blank">QMK</a> and has plenty of memory and flash storage to use some of the fancy features that QMK offers.</p>
+					<p>Because I want the top side of the PCB to look clean, I had to find a USB-C connector which does not protrude to the other side. I found one which requires just two 0.7 mm holes in the PCB, which are barely visible.</p>
+					<p>Rotary encoders are typically very tall. I needed to find one which would go well with my low profile keys. I found one with 20 clicks per rotation, which feels about right. It takes 16 clicks to go from zero to max volume on my OS.</p>
+					<p>The rest of the parts are nothing special at all. You can find the full list at <a href="https://www.digikey.com/en/mylists/list/9PG9QW3RYC" target="_blank">DigiKey</a>.</p>
+				</section>
+
+				<section id="schematic">
+					<h4>Schematic and PCB layout</h4>
+					<a href="images/KiCad schematic.png">
+						<img src="images/KiCad schematic.png" alt="screenshot of schematic in KiCad" loading="lazy" width="2670" height="1838">
+					</a>
+					<p>I used <a href="https://www.kicad.org/" target="_blank">KiCad</a>, which was a pretty good experience.</p>
+					<p>For the USB-C connector and ICs, I mostly followed the recommendations in the datasheets and application notes. I routed matrix rows and columns on opposite layers. When selecting footprints, I made sure to use the variants with the suffix "handsolder" — those have slightly larger pads.</p>
+					<a href="images/KiCad PCB.jpg">
+						<img src="images/KiCad PCB.jpg" alt="screenshot of routed PCB in KiCad" loading="lazy" width="2788" height="2034">
+					</a>
+				</section>
+
+				<section id="3D-models">
+					<h4>A word about 3D models</h4>
+					<a href="images/KiCad 3D viewer.jpg">
+						<img src="images/KiCad 3D viewer.jpg" alt="screenshot of kicad 3d viewer with keyboard pcb" loading="lazy" width="3058" height="1944">
+					</a>
+					<p>KiCad comes with a 3D viewer, which shows the current state of the PCB you're working on, including 3D models of all the parts.</p>
+					<p>Common parts, which are included in KiCad, already come with 3D models. For the few parts I had to add, I made sure to download 3D models. This turned out to be very helpful. By looking at the 3D visualization, instead of the rather abstract 2D layers, I caught many silly mistakes early.</p>
+					<p>I found a very nice model of the Kailh Choc V2 switches and some stabilizers, made by <a href="https://github.com/koktoh/keyswitch_model" target="_blank">GitHub user koktoh</a>. I used FreeCAD to remove the third pin from the switch, because the new version, which I use, has only two. In KiCad's footprint editor, where 3D models are added, I also added the model of my keycaps on top of the switches. This was trivial, because the position of each 3D model can be adjusted individually.</p>
+					<p>For the rotary encoder and USB-C connector I downloaded footprints and 3D models from DigiKey, respectively the manufacturer.</p>
+					<p>I also imported the 3D model of the rotary encoder into FreeCAD, to design a cap for it. That made it easy to get a perfect fit, without having to measure any dimensions on the real part.</p>
+					<p>For the mounting-holes in the PCB, I added the 3D model of the foot, including the M2 screw.</p>
+					<a href="images/render.jpg">
+						<img src="images/render.jpg" alt="rendering of the keyboard including keys, keycaps and USB wire" loading="lazy" width="3840" height="2160">
+					</a>
+					<p>The 3D model of the PCB, with all parts, can be exported and opened in FreeCAD. While not necessary in my case, this is invaluable if you need to design an enclosure, which fits snugly around the PCB.</p>
+					<p>Instead, I imported the PCB into <a href="https://www.blender.org/download/" target="_blank">Blender</a>, for a quick visualization — just to get excited about the awesome keyboard I would soon have on my desk.</p>
+				</section>
+
+				<section id="macropad">
+					<h4>MacroPad</h4>
+					<a href="images/MacroPad.jpg">
+						<img src="images/MacroPad.jpg" alt="photo of macro pad" loading="lazy" width="2916" height="1801">
+					</a>
+					<p>Before designing the keyboard PCB, to avoid expensive mistakes, I built a small "macro pad" with all the features of the big keyboard, but in a minimal footprint: a rotary encoder, a key with LED, 4 keys connected in a matrix to test anti-ghosting diodes, a 2u key with stabilizer, the same microcontroller that I use for the big keyboard.</p>
+					<p>This was also an opportunity to check text sizes, line widths and the PCB quality.</p>
+					<p>I had to reduce the holes and cutouts for the switches and stabilizers a bit, for a better fit. I also increased the pad sizes for the USB-C connector for easier hand soldering. Lastly I reduced the brightness of the USB power indicator LED by giving it a higher value resistor. Otherwise everything worked as expected.</p>
+					<a href="images/black soldermask.jpg">
+						<img src="images/black soldermask.jpg" alt="photo of PCBs with different quality black soldermask" loading="lazy" width="3000" height="2039">
+					</a>
+					<p>I ordered MacroPad PCBs from PCBWay and JLCPCB. PCBWay offers matte black soldermask, JLCPCB has only semi-glossy black. The "matte black" soldermask (right) I would call "dark gray". The semi-glossy one (middle) is a bit darker, but of course more glossy. Both have a slightly blue tint. They don't look as nice as the PCB on the left.</p>
+				</section>
+
+				<section id="manufacturing">
+					<h4>Get it made</h4>
+					<p>I would have preferred the matte soldermask from PCBWay, but JLCPCB offers the large keyboard PCB <em>much</em> cheaper ($ 24 vs. $ 125 for 5 PCBs) — therefore I went with semi-glossy black.</p>
+					<a href="images/DeskFighter PCB.jpg">
+						<img src="images/DeskFighter PCB.jpg" alt="photo of DeskFighter PCBs, front and back" loading="lazy" width="3000" height="1786">
+					</a>
+					<p>To my surprise, I received very nice looking PCBs. The soldermask is a bit more glossy than that on the macropad, but it's a beautiful black and the HASL surface treatment is as good as it gets. I'm not sure why this is — maybe these were produced in a different facility. Either way, I'm happy about it.</p>
+					<p>With the stated goal of using automated manufacturing, I should of course have ordered PCB assembly as well. I actually tried, but JLCPCB's process of parts assignment and positioning was very buggy and frustrating. The price was not very attractive either, because many of the parts were in the "extended" category, for which an extra charge was applied. On top of that I would have had to pay VAT and a € 20 processing fee on import, which get waived for shipments below € 60.</p>
+				</section>
+			</section>
+
+			<section id="firmware">
+				<h3>Firmware</h3>
+				<p>After soldering the SMD parts on the bottom, but before finishing the assembly, I wanted to test if the board even works. After all, I could have messed up the design or there might be a manufacturing issue.</p>
+				<a href="images/flashing.png">
+					<img src="images/flashing.png" alt="screenshot of terminal while writing firmware to microcontroller" loading="lazy" width="1729" height="1435">
+				</a>
+				<p>I followed QMK's documentation to configure, build and flash the firmware. I already experimented with this when I built the MacroPad and have prepared the configuration for the keyboard.</p>
+				<a href="images/PCB testing.jpg">
+					<img src="images/PCB testing.jpg" alt="photo of DeskFighter PCB with soldered SMD components and red power LED lit" loading="lazy" width="3000" height="1842">
+				</a>
+				<p>I used tweezers to simulate key presses. Unfortunately none of the keys on column 3 worked, while those on column 8 triggered column 3 as well. Of course I thought I messed up the PCB design or had some solder bridges. But continuity-testing with the multimeter found no problem.</p>
+				<p>Then I checked the microcontroller datasheet for info about the I/O pins in question. A footnote described some condition when an unwanted pull-down resistor would get activated on my column 3 pin if the column 8 pin was high on startup (a feature intended for dead battery detection).</p>
+				<p>Luckily I was able to disable this functionality in the QMK configuration. After that, all keys worked and I was very relieved.</p>
+			</section>
+
+			<section id="assembly">
+				<h3>Assembly</h3>
+				<a href="images/PCB finished soldering.jpg">
+					<img src="images/PCB finished soldering.jpg" alt="photo of PCB with all keys soldered" loading="lazy" width="3000" height="1941">
+				</a>
+				<p>Soldering the rest of the parts was a bit of a chore. Fortunately the switches are through hole parts, which can be soldered efficiently without a microscope.</p>
+				<p>The rest of the assembly — stabilizers, feet, keycaps — was quite enjoyable. A bit like playing with LEGO as a kid.</p>
+				<a href="images/PCB with black edge.jpg">
+					<img src="images/PCB with black edge.jpg" alt="photo of PCB with black painted edge" loading="lazy" width="3000" height="1757">
+				</a>
+				<p>As a final touch, I used a waterproof marker to paint the edge of the PCB black.</p>
+				<p>I know, I said no post-processing, but this wasn't much work and well worth the effort.</p>
+			</section>
+		</section>
+
+		<section id="using">
+			<h2>Using it</h2>
+			<a href="images/keyboard on desk.jpg">
+				<img src="images/keyboard on desk.jpg" alt="photo of keyboard on desk" loading="lazy" width="3000" height="1742">
+			</a>
+			<p>After a few days of using it, these are my impressions:</p>
+			<ul>
+				<li>ortholinear layout feels nice, after getting used to it</li>
+				<li>"numpad" works well</li>
+				<li>backspace key still needs conscious effort to use, but is very efficient</li>
+				<li>QMK invites experimentation — changes to keymap are quick and easy to make</li>
+				<li>keys feel and sound good<br><audio src="sounds/typing.mp3" controls loading="lazy"></audio></li>
+				<li>volume knob is very clicky<br><audio src="sounds/volume.mp3" controls loading="lazy"></audio></li>
+			</ul>
+			<p>I'm very happy with the result. It looks and feels great, so I consider this project a success.</p>
+		</section>
+
+		<section id="costs">
+			<h2>BOM and costs</h2>
+			<p>I have no affiliation with any of the mentioned shops and manufacturers. There are only links to shops that I've had a good experience with.</p>
+			<table class="costs">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Shipping</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="https://www.keebart.com/" target="_blank">Keebart</a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Switch tester (Kailh Choc V2) with blank keycaps</td>
+						<td>1</td>
+						<td>€ 15.38</td>
+						<td>€ 8.90</td>
+					</tr>
+					<tr>
+						<td>Switches (Kailh Choc V2 Red)</td>
+						<td>100</td>
+						<td>€ 41.20</td>
+						<td>€ 8.90</td>
+					</tr>
+					<tr>
+						<td>THT keycaps blank</td>
+						<td>50</td>
+						<td>€ 18.90</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>THT keycaps with dot</td>
+						<td>10</td>
+						<td>€ 4.96</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>THT keycaps with tactile marker</td>
+						<td>2</td>
+						<td>€ 1.00</td>
+						<td>€ 8.90</td>
+					</tr>
+					<tr>
+						<td><a href="https://www.maxgaming.com/shop" target="_blank">Max Gaming</a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Durock V3 plate-mounted stabilizer set</td>
+						<td>1</td>
+						<td>€ 11.50</td>
+						<td>€ 8.00</td>
+					</tr>
+					<tr>
+						<td><a href="https://www.digikey.com/" target="_blank"">DigiKey</a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><a href="https://www.digikey.com/en/mylists/list/9PG9QW3RYC" target="_blank">Various items</a>, quantities for more than one keyboard</td>
+						<td>–</td>
+						<td>€ ~58.00</td>
+						<td><sup>1</sup> € 0.00</td>
+					</tr>
+					<tr>
+						<td><a href="https://jlcpcb.com/" target="_blank">JLCPCB</a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>DeskFighter PCB</td>
+						<td>5</td>
+						<td>€ 20.85</td>
+						<td><sup>2</sup> € 11.26</td>
+					</tr>
+					<tr>
+						<td>MacroPad PCB (optional)</td>
+						<td>5</td>
+						<td>€ 5.46</td>
+						<td><sup>2</sup> € 15.62</td>
+					</tr>
+					<tr>
+						<td><a href="https://www.pcbway.com/" target="_blank">PCBWay</a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>MacroPad PCB (optional)</td>
+						<td>5</td>
+						<td>€ 17.34</td>
+						<td>€ 25.00</td>
+					</tr>
+					<tr>
+						<td><a href="https://cnckitchen.store/" target="_blank">CNC Kitchen</a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>M2 heat-set inserts</td>
+						<td>100</td>
+						<td>€ 8.67</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Installation tip set C245 (optional)</td>
+						<td>1</td>
+						<td>€ 24.94</td>
+						<td>€ 9.76</td>
+					</tr>
+					<tr>
+						<td><a href="https://www.aliexpress.com/" target="_blank">AliExpress</a></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>M2 × 5 mm screws, black, Torx</td>
+						<td>50</td>
+						<td>€ 1.47</td>
+						<td>€ 2.00</td>
+					</tr>
+					<tr>
+						<td>Rubber feet, 8 mm × 3 mm, self-adhesive</td>
+						<td>70</td>
+						<td>€ 2.00</td>
+						<td>€ 2.00</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td></td>
+						<td></td>
+						<td>€ 231.67</td>
+						<td>€ 100.34</td>
+					</tr>
+				</tfoot>
+			</table>
+			<p class="footnote"><sup>1</sup> Ordered additional products to get free shipping.</p>
+			<p class="footnote"><sup>2</sup> Applied coupons to reduce shipping costs.</p>
+			<p>As you can see, it wasn't cheap. A high quality mechanical keyboard, with enclosure, can be bought for around € 200 (prices vary wildly). However, I now have a keyboard that's tailored to my preferences, which I can't buy anywhere.</p>
+
+			<section id="mistakes">
+				<h3>Mistakes</h3>
+				<p>Things I've bought, but shouldn't have:</p>
+				<ul>
+					<li>2 different sets of stabilizers (wrong height)</li>
+					<li>10 2u keycaps (don't like them)</li>
+					<li>100 Kailh Choc V2 switches, old version (don't like them)</li>
+					<li>50 M2 screws with hex drive (garbage)</li>
+				</ul>
+			</section>
+		</section>
+
+		<section id="outro">
+			<h2>But wait…</h2>
+			<blockquote>I want to use something from this project!</blockquote>
+			<p>Here are the files:<br>
+			<a href="https://github.com/swonkie/DeskFighter" target="_blank">https://github.com/swonkie/DeskFighter</a></p>
+			<p>Please give credit by including this URL if you publish something based on my work.</p>
+			<p>If you want to contact me: swonkie (at) pm.me</p>
+			<blockquote>Why DeskFighter?</blockquote>
+			It's a nod to "naked" sport bikes, often called Streetfighter.
+			<p>
+			<blockquote>How much does it weigh?</blockquote>
+			<p>308 g (10.86 oz).</p>
+			</p>
+		</section>
+	</main>
+
+	<script>
+		const observer = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				const id = entry.target.getAttribute('id');
+				if (entry.isIntersecting) {
+					document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.add('active');
+				} else {
+					document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.remove('active');
+				}
+			});
+		});
+
+		document.querySelectorAll('section[id]').forEach(el => observer.observe(el));
+	</script>
+</body>
+
+</html>
